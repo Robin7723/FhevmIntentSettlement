@@ -1,0 +1,243 @@
+Build an Encrypted Cross-Chain Intent Settlement Protocol using Zama FHEVM (Fully Homomorphic Encryption).
+
+PROJECT OVERVIEW:
+A privacy-preserving DeFi protocol where users create encrypted swap intents and solvers compete blindly to fill them. All sensitive data (amounts, rates, limits) remain encrypted on-chain using FHE.
+
+SMART CONTRACT (Solidity 0.8.24):
+
+File: contracts/EncryptedIntentProtocol.sol
+
+Requirements:
+1. Import fhevm/lib/TFHE.sol and fhevm/gateway/GatewayCaller.sol
+2. Contract inherits from GatewayCaller
+3. Use encrypted types: euint64, euint8, ebool
+
+Data Structures:
+- EncryptedIntent struct with:
+  * address user
+  * euint64 encryptedTokenInAmount
+  * euint64 encryptedMinTokenOut  
+  * euint8 encryptedSourceChain
+  * euint8 encryptedDestChain
+  * euint64 encryptedDeadline
+  * uint256 createdAt
+  * bool isActive
+  * bool isFilled
+
+- EncryptedOffer struct with:
+  * address solver
+  * uint256 intentId
+  * euint64 encryptedRate
+  * euint64 encryptedFee
+  * euint64 encryptedTimestamp
+  * bool isAccepted
+
+State Variables:
+- mapping(uint256 => EncryptedIntent) public intents
+- mapping(uint256 => EncryptedOffer[]) public offersForIntent
+- uint256 public intentCounter
+
+Functions to implement:
+
+1. createIntent(einput encryptedTokenIn, einput encryptedMinOut, einput encryptedSourceChain, einput encryptedDestChain, bytes calldata inputProof) returns uint256
+   - Convert inputs using TFHE.asEuint64() and TFHE.asEuint8()
+   - Store encrypted intent
+   - Set TFHE.allowThis() for all encrypted values
+   - Emit IntentCreated event
+
+2. submitOffer(uint256 intentId, einput encryptedRate, einput encryptedFee, bytes calldata inputProof)
+   - Require intent is active and not filled
+   - Convert inputs using TFHE.asEuint64()
+   - Store encrypted offer
+   - Set TFHE.allowThis() for rate and fee
+   - Emit OfferSubmitted event
+
+3. matchIntent(uint256 intentId)
+   - Require intent is active
+   - Get best offer (for MVP: just first offer)
+   - Use TFHE.ge() to compare rate with minimum (not gte!)
+   - Use TFHE.le() to check deadline (not lte!)
+   - Mark intent as filled
+   - Emit IntentFilled event
+
+4. View functions: isIntentActive(), getOfferCount(), getIntentCreator(), getIntentTimestamp()
+
+CRITICAL: Use TFHE.ge() and TFHE.le() NOT gte() or lte()
+
+---
+
+FRONTEND (Next.js 14 + TypeScript):
+
+Structure:
+/app
+  /page.tsx - Main dashboard with user/solver tabs
+  /providers.tsx - Wallet and query providers
+/components
+  /CreateIntent.tsx - User form to create encrypted intents
+  /SubmitOffer.tsx - Solver form to submit offers
+  /IntentList.tsx - Display active intents
+/lib
+  /fhevm.ts - FHE encryption helpers
+  /constants.ts - Contract ABI and address
+
+Tech Stack:
+- Next.js 14 with App Router
+- TypeScript
+- Tailwind CSS
+- RainbowKit for wallet connection
+- Wagmi for Ethereum interactions
+- fhevmjs for client-side encryption
+- ethers v6
+
+Key Features:
+
+1. Wallet Connection:
+   - Use RainbowKit ConnectButton
+   - Configure Zama Devnet (chainId: 8009, RPC: https://devnet.zama.ai)
+
+2. User Flow (CreateIntent component):
+   - Form fields: Token In Amount, Min Token Out, Source Chain, Dest Chain
+   - On submit: encrypt values using fhevmjs, call createIntent()
+   - Show loading state and success message
+
+3. Solver Flow (SubmitOffer component):
+   - Dropdown to select active intent
+   - Form fields: Exchange Rate, Fee
+   - On submit: encrypt values, call submitOffer()
+
+4. Intent List (IntentList component):
+   - Fetch all intents from contract
+   - Display: Intent ID, offer count, created time
+   - "Match Best Offer" button for active intents with offers
+   - Show encrypted data with 🔒 icon
+
+5. fhevm.ts helpers:
+   - initFhevm(provider) - Initialize FHE instance
+   - encryptValue(value, bits) - Encrypt a value
+   - Use createEncryptedInput() from fhevmjs
+
+Design:
+- Modern gradient background (blue-50 to purple-50)
+- Card-based UI with shadows
+- Two-tab interface: "I'm a User" / "I'm a Solver"
+- Show encryption indicators (🔒) next to encrypted fields
+- Responsive design
+
+---
+
+HARDHAT CONFIGURATION:
+
+hardhat.config.ts:
+- Solidity 0.8.24
+- Network: zamaDevnet (url: https://devnet.zama.ai, chainId: 8009)
+- Network: localhost for testing
+
+package.json dependencies:
+- hardhat
+- fhevm@0.5.8 (IMPORTANT: specific version)
+- @nomicfoundation/hardhat-toolbox
+- ethers@6
+
+---
+
+DEPLOYMENT:
+
+Create scripts/deploy.ts:
+- Deploy EncryptedIntentProtocol
+- Log deployed address
+- Save to deployed-address.json
+
+---
+
+KEY POINTS:
+1. ALL sensitive data encrypted (amounts, rates, limits)
+2. No localStorage (not supported)
+3. Use TFHE.ge() and TFHE.le() NOT gte/lte
+4. MVP matching: accept first offer (full comparison requires Gateway)
+5. Emphasize privacy: data stays encrypted on-chain
+6. Clean, professional UI with clear CTAs
+
+DELIVERABLES:
+- Working smart contract that compiles
+- Full Next.js frontend with wallet integration
+- Deployment scripts
+- README with setup instructions
+
+This is a UNIQUE project - first encrypted intent protocol for DeFi. Focus on demonstrating FHE encryption capabilities and privacy preservation.
+
+**Important Links:**
+- Zama FHEVM Docs: https://docs.zama.ai/fhevm
+- TFHE Operations: https://docs.zama.ai/fhevm/fundamentals/operations
+- GitHub Template: https://github.com/zama-ai/fhevm-hardhat-template
+- fhevmjs NPM: https://www.npmjs.com/package/fhevmjs
+- Zama Devnet RPC: https://devnet.zama.ai
+- Chain ID: 8009
+
+**Key Innovation:** First encrypted intent protocol - no other project in the Zama ecosystem does this. Solves the MEV problem by keeping user minimums and solver bids encrypted.
+
+---
+
+## 📦 DEPENDENCIES & VERSIONS (CRITICAL)
+
+### Backend (Smart Contract):
+```json{
+"dependencies": {
+"fhevm": "^0.5.8"
+},
+"devDependencies": {
+"hardhat": "^2.19.0",
+"@nomicfoundation/hardhat-toolbox": "^4.0.0",
+"@nomicfoundation/hardhat-ethers": "^3.0.5",
+"ethers": "^6.10.0",
+"@typechain/ethers-v6": "^0.5.1",
+"@typechain/hardhat": "^9.1.0",
+"typescript": "^5.3.3",
+"ts-node": "^10.9.2"
+}
+}
+
+### Frontend (Next.js):
+```json{
+"dependencies": {
+"next": "^14.1.0",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"fhevmjs": "^0.5.0",
+"@rainbow-me/rainbowkit": "^2.0.2",
+"wagmi": "^2.5.7",
+"viem": "^2.7.15",
+"@tanstack/react-query": "^5.20.5",
+"ethers": "^6.10.0"
+}
+}
+
+## 🚨 CRITICAL WARNINGS
+
+1. **DO NOT use localStorage** - Not supported in this environment
+2. **Use TFHE.ge() and TFHE.le()** - NOT gte() or lte()
+3. **Always call TFHE.allowThis()** for encrypted values
+4. **fhevm version must be 0.5.8** - Other versions may not work
+5. **Test with Zama Devnet** - Localhost requires special setup
+
+---
+
+## 📖 ADDITIONAL CONTEXT
+
+**What makes this unique:**
+- First encrypted intent protocol in Zama ecosystem (verified - 0 out of 423 projects)
+- Solves real MEV problem (billions in value)
+- Uses novel blind bidding mechanism
+- Demonstrates multiple FHE primitives
+
+**Target judges:**
+- Focus on privacy preservation (encrypted storage)
+- Emphasize FHE necessity (can't do this with ZK)
+- Show real-world application (DeFi trading)
+- Professional UI/UX
+
+**MVP Simplifications:**
+- Matching accepts first offer (full comparison requires Gateway)
+- No actual token transfers (focus on intent/offer mechanism)
+- Single-token pair (can expand later)
+
+This is a COMPLETE, working demonstration of FHE-enabled intent trading.

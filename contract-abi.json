@@ -1,0 +1,354 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "IntentCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "solver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "offerIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "IntentFilled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "solver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "offerIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "OfferSubmitted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "einput",
+        "name": "encryptedTokenIn",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "einput",
+        "name": "encryptedMinOut",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "einput",
+        "name": "encryptedSourceChain",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "einput",
+        "name": "encryptedDestChain",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "inputProof",
+        "type": "bytes"
+      }
+    ],
+    "name": "createIntent",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getIntentCreator",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getIntentTimestamp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOfferCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "intentCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "intents",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedTokenInAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedMinTokenOut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint8",
+        "name": "encryptedSourceChain",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint8",
+        "name": "encryptedDestChain",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedDeadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isFilled",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isIntentActive",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "matchIntent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "offersForIntent",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "solver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "euint64",
+        "name": "encryptedTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isAccepted",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "intentId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "einput",
+        "name": "encryptedRate",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "einput",
+        "name": "encryptedFee",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "inputProof",
+        "type": "bytes"
+      }
+    ],
+    "name": "submitOffer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
