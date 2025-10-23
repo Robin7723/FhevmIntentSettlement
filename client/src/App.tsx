@@ -8,7 +8,9 @@ import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowki
 import { wagmiConfig } from "./lib/wagmi";
 import { ThemeProvider, useTheme } from "./components/providers/ThemeProvider";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import HomePage from "@/pages/home";
+import DocsPage from "@/pages/docs";
 import NotFound from "@/pages/not-found";
 import "@rainbow-me/rainbowkit/styles.css";
 
@@ -16,6 +18,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/docs" component={DocsPage} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -32,11 +35,12 @@ function AppContent() {
           modalSize="compact"
         >
           <TooltipProvider>
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen bg-background flex flex-col">
               <Header />
               <main className="flex-1">
                 <Router />
               </main>
+              <Footer />
             </div>
             <Toaster />
           </TooltipProvider>
