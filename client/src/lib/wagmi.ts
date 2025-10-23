@@ -1,9 +1,9 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { ZAMA_DEVNET } from "./constants";
+import { sepolia } from "viem/chains";
 
 export const wagmiConfig = getDefaultConfig({
   appName: "Encrypted Intent Protocol",
   projectId: "encrypted-intent-protocol-fhevm",
-  chains: [ZAMA_DEVNET as any],
+  chains: [sepolia],
   ssr: false,
 });

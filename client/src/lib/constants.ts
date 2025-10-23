@@ -1,30 +1,14 @@
 import contractABI from "../../../contract-abi.json";
+import { sepolia } from "viem/chains";
 
-export const ZAMA_DEVNET_CHAIN_ID = 8009;
+export const SEPOLIA_CHAIN_ID = sepolia.id;
 
-export const ZAMA_DEVNET = {
-  id: ZAMA_DEVNET_CHAIN_ID,
-  name: "Zama Devnet",
-  nativeCurrency: {
-    decimals: 18,
-    name: "ZAMA",
-    symbol: "ZAMA",
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://devnet.zama.ai"],
-    },
-    public: {
-      http: ["https://devnet.zama.ai"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Zama Explorer",
-      url: "https://devnet.zama.ai",
-    },
-  },
-  testnet: true,
+export const FHEVM_SEPOLIA_CONFIG = {
+  ACLAddress: "0xFee8407e2f5e3Ee68ad77cAE98c434e637f516e5",
+  KMSVerifierAddress: "0x9D6891A6240D6130c54ae243d8005063D05fE14b",
+  InputVerifierAddress: "0x9D6891A6240D6130c54ae243d8005063D05fE14b",
+  FHEVMCoprocessorAddress: "0x0000000000000000000000000000000000000044",
+  GatewayContractAddress: "0x0000000000000000000000000000000000000000",
 };
 
 // This will be updated after deployment
